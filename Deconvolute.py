@@ -7,9 +7,9 @@ import matplotlib.cm as cm
 #WORK ONGOING
 # Load the observed spectrum and reference spectra from Excel files
 # ---Make sure that the files are in Excel format and that the first column holds the wavelength and the second the absorption data---
-observed_spectrum_file = 'After45mn_corrected.xlsx'
+observed_spectrum_file = 'observed_spectrum.xlsx'
 # ---Add the name of as many reference spectra as you want. Make sure that the script is in the same folder as the reference and observed spectra---
-reference_spectra_files = ['PhCHO_heptane_corrected.xlsx', 'RhCO_corrected.xlsx', 'RhCOPh_corrected.xlsx']
+reference_spectra_files = ['reference_spectrum1.xlsx', 'reference_spectrum2.xlsx', 'reference_spectrum2.xlsx']
 
 # Define the wavelength range (in nm) for truncation
 wavelength_range = (230, 600)
