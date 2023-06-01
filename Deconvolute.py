@@ -7,9 +7,9 @@ import matplotlib.cm as cm
 #WORK ONGOING
 # Load the observed spectrum and reference spectra from Excel files
 # ---Make sure that the files are in Excel format and that the first column holds the wavelength and the second the absorption data---
-observed_spectrum_file = 'observed_spectrum.xlsx'
+observed_spectrum_file = 'After45mn_corrected.xlsx'
 # ---Add the name of as many reference spectra as you want. Make sure that the script is in the same folder as the reference and observed spectra---
-reference_spectra_files = ['reference1.xlsx', 'reference2.xlsx', 'reference3.xlsx']
+reference_spectra_files = ['PhCHO_heptane_corrected.xlsx', 'RhCO_corrected.xlsx', 'RhCOPh_corrected.xlsx']
 
 # Define the wavelength range (in nm) for truncation
 wavelength_range = (230, 600)
@@ -78,26 +78,6 @@ popt, _ = curve_fit(fit_func, observed_wavelength, observed_intensity, p0=initia
 # Calculate the fitted spectrum using the estimated contributions
 fitted_spectrum = fit_func(observed_wavelength, *popt)
 
-# Insert plot data into data frame
-data = pd.DataFrame(
-    {'Wavelength': observed_wavelength,
-     'Absorbance': fitted_spectrum}
-)
-
-# Create a Pandas Excel writer using XlsxWriter
-excel_file = 'Fit_' + observed_spectrum_file
-sheet_name = 'Fit_' + observed_spectrum_file
-writer = pd.ExcelWriter(excel_file, engine = 'xlsxwriter')
-data.to_excel(writer, sheet_name = sheet_name)
-
-# Access the XlsxWriter workbook and worksheet objects from the dataframe.
-workbook = writer.book
-worksheet = writer.sheets[sheet_name]
-
-# Close and save the Excel file
-writer.save()
-
-
 # Calculate the residuals
 residuals = observed_intensity - fitted_spectrum
 
@@ -147,3 +127,15 @@ plt.show()
 # Print the percentages
 for i, percentage in enumerate(percentages):
     print(f'Percentage of Contribution {i + 1}: {percentage:.2f}%')
+    
+# Save the fitted spectrum to an Excel file
+def save_fitted_spectrum_to_excel(output_file):
+    fitted_spectrum_data = pd.DataFrame({'Wavelength': observed_wavelength, 'Intensity': fitted_spectrum})
+    fitted_spectrum_data.to_excel(output_file, index=False)
+    print(f"Fitted spectrum saved to {output_file}")
+
+# Specify the output filename for the fitted spectrum
+output_spectrum_file = 'FittedSpectrum.xlsx'
+
+# Call the function to save the fitted spectrum
+save_fitted_spectrum_to_excel(output_spectrum_file)
