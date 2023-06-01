@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import matplotlib.cm as cm
 
+#WORK ONGOING
 # Load the observed spectrum and reference spectra from Excel files
 # ---Make sure that the files are in Excel format and that the first column holds the wavelength and the second the absorption data---
 observed_spectrum_file = 'observed_spectrum.xlsx'
@@ -76,6 +77,26 @@ popt, _ = curve_fit(fit_func, observed_wavelength, observed_intensity, p0=initia
 
 # Calculate the fitted spectrum using the estimated contributions
 fitted_spectrum = fit_func(observed_wavelength, *popt)
+
+# Insert plot data into data frame
+data = pd.DataFrame(
+    {'Wavelength': observed_wavelength,
+     'Absorbance': fitted_spectrum}
+)
+
+# Create a Pandas Excel writer using XlsxWriter
+excel_file = 'Fit_' + observed_spectrum_file
+sheet_name = 'Fit_' + observed_spectrum_file
+writer = pd.ExcelWriter(excel_file, engine = 'xlsxwriter')
+data.to_excel(writer, sheet_name = sheet_name)
+
+# Access the XlsxWriter workbook and worksheet objects from the dataframe.
+workbook = writer.book
+worksheet = writer.sheets[sheet_name]
+
+# Close and save the Excel file
+writer.save()
+
 
 # Calculate the residuals
 residuals = observed_intensity - fitted_spectrum
