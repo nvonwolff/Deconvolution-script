@@ -13,6 +13,10 @@ This script fits an observed spectrum with a linear combination of reference spe
 - matplotlib
 - scipy
 
+## Branch usage
+
+Changes should be made to the fixes branch.
+
 ## Usage
 
 1. Ensure that the script file is located in the same directory as the observed and reference spectra files, which should be in Excel format.
@@ -30,6 +34,7 @@ The script will perform the following steps:
 5. Generate a plot showing the observed spectrum, fitted spectrum, and contributions from each reference spectrum.
 6. Save the plot as a PNG file.
 7. Print the percentages of the reference spectra contributions.
+8. Saves the fitted spectrum as an excel file
 
 ## Additional Customizations
 
