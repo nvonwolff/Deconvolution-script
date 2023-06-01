@@ -134,7 +134,7 @@ def save_fitted_spectrum_to_excel(output_file):
     fitted_spectrum_data.to_excel(output_file, index=False)
     print(f"Fitted spectrum saved to {output_file}")
 
-# Specify the output filename for the fitted spectrum
+# Specify the output filename for the fitted spectrum (change name if necessary)
 output_spectrum_file = 'FittedSpectrum.xlsx'
 
 # Call the function to save the fitted spectrum
